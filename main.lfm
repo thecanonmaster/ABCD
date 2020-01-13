@@ -1,0 +1,143 @@
+object MainForm: TMainForm
+  Left = 688
+  Height = 705
+  Top = 166
+  Width = 683
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  Caption = 'Lithtech Talon ABCDecompiler'
+  ClientHeight = 685
+  ClientWidth = 683
+  Menu = MainMenu1
+  OnClose = FormClose
+  OnCreate = FormCreate
+  Position = poScreenCenter
+  LCLVersion = '2.0.0.4'
+  object StatusBar1: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 662
+    Width = 683
+    Panels = <>
+  end
+  object mmoLog: TMemo
+    Left = 8
+    Height = 272
+    Top = 392
+    Width = 672
+    ReadOnly = True
+    ScrollBars = ssVertical
+    TabOrder = 1
+  end
+  object tvData: TTreeView
+    Left = 8
+    Height = 384
+    Top = 0
+    Width = 200
+    ReadOnly = True
+    ScrollBars = ssVertical
+    TabOrder = 2
+    OnChange = tvDataChange
+    Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
+  end
+  object sgData: TStringGrid
+    Left = 216
+    Height = 384
+    Top = 0
+    Width = 464
+    ColCount = 2
+    Columns = <    
+      item
+        ReadOnly = True
+        Title.Caption = 'Key'
+        Width = 150
+      end    
+      item
+        ReadOnly = True
+        Title.Caption = 'Value'
+        Width = 270
+      end>
+    FixedCols = 0
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goSmoothScroll]
+    RowCount = 1
+    TabOrder = 3
+  end
+  object MainMenu1: TMainMenu
+    left = 552
+    top = 424
+    object FileMenu: TMenuItem
+      Caption = 'File'
+      object OpenABCItem: TMenuItem
+        Caption = 'Open ABC'
+        GlyphShowMode = gsmNever
+        OnClick = OpenABCItemClick
+      end
+      object SeparatorItem1: TMenuItem
+        Caption = '-'
+      end
+      object ExitItem: TMenuItem
+        Caption = 'Exit'
+        OnClick = ExitItemClick
+      end
+    end
+    object ToolsMenu: TMenuItem
+      Caption = 'Tools'
+      object SMDItem: TMenuItem
+        Caption = 'Save as HL1 SMD (ModelEdit Coords)'
+        Enabled = False
+        OnClick = SMDItemClick
+      end
+      object SMDFixItem: TMenuItem
+        Caption = 'Save as HL1 SMD (Engine Coords)'
+        Enabled = False
+        OnClick = SMDFixItemClick
+      end
+      object SeparatorItem2: TMenuItem
+        Caption = '-'
+      end
+      object DecompileItem: TMenuItem
+        Caption = 'Decompile'
+        OnClick = DecompileItemClick
+      end
+      object FirerateItem: TMenuItem
+        Caption = 'Fire Rate Calculator'
+        OnClick = FirerateItemClick
+      end
+      object AnimMergeItem: TMenuItem
+        Caption = 'Animation Merge'
+        OnClick = AnimMergeItemClick
+      end
+      object ScaleModelItem: TMenuItem
+        Caption = 'Scale Model'
+        OnClick = ScaleModelItemClick
+      end
+      object SeparatorItem3: TMenuItem
+        Caption = '-'
+      end
+      object ImportChildModelItem: TMenuItem
+        Caption = 'Import "SELF" Child Model'
+        OnClick = ImportChildModelItemClick
+      end
+      object ExportChildModelsItem: TMenuItem
+        Caption = 'Export "SELF" Child Model'
+        OnClick = ExportChildModelsItemClick
+      end
+    end
+    object HelpMenu: TMenuItem
+      Caption = 'About'
+      OnClick = HelpMenuClick
+    end
+  end
+  object OpenDialogABC: TOpenDialog
+    Title = 'Open ABC file'
+    Filter = 'LTTalon Model (*.ABC)|*.ABC'
+    left = 512
+    top = 424
+  end
+  object OpenDialogSCM: TOpenDialog
+    Title = 'Open ABC file'
+    Filter = 'Exported SCM (*.SCM)|*.SCM'
+    left = 504
+    top = 480
+  end
+end

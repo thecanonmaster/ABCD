@@ -1,0 +1,95 @@
+object FRateCalcForm: TFRateCalcForm
+  Left = 498
+  Height = 224
+  Top = 232
+  Width = 352
+  BorderStyle = bsDialog
+  Caption = 'Fire Rate Calculator'
+  ClientHeight = 224
+  ClientWidth = 352
+  OnShow = FormShow
+  Position = poMainFormCenter
+  LCLVersion = '1.0.14.0'
+  object btnCalc: TButton
+    Left = 240
+    Height = 26
+    Top = 24
+    Width = 96
+    Caption = 'Calculate'
+    OnClick = btnCalcClick
+    TabOrder = 0
+  end
+  object cbAnim: TComboBox
+    Left = 8
+    Height = 21
+    Top = 24
+    Width = 216
+    ItemHeight = 13
+    OnChange = cbAnimChange
+    Style = csDropDownList
+    TabOrder = 1
+  end
+  object lblAnim: TLabel
+    Left = 8
+    Height = 14
+    Top = 8
+    Width = 50
+    Caption = 'Animation:'
+    ParentColor = False
+  end
+  object lblFireRate: TLabel
+    Left = 8
+    Height = 14
+    Top = 104
+    Width = 65
+    Caption = 'Fire rate: N/A'
+    ParentColor = False
+  end
+  object lblLength: TLabel
+    Left = 8
+    Height = 14
+    Top = 56
+    Width = 60
+    Caption = 'Length: N/A'
+    ParentColor = False
+  end
+  object lblMsgCount: TLabel
+    Left = 8
+    Height = 14
+    Top = 80
+    Width = 77
+    Caption = 'Msg count: N/A'
+    ParentColor = False
+  end
+  object edtDesRate: TEdit
+    Left = 8
+    Height = 21
+    Top = 140
+    Width = 216
+    TabOrder = 2
+  end
+  object lblDesRate: TLabel
+    Left = 8
+    Height = 14
+    Top = 126
+    Width = 61
+    Caption = 'Desired rate:'
+    ParentColor = False
+  end
+  object lblResLength: TLabel
+    Left = 8
+    Height = 14
+    Top = 176
+    Width = 101
+    Caption = 'Resulted length: N/A'
+    ParentColor = False
+  end
+  object lblRatio: TLabel
+    Left = 8
+    Height = 14
+    Top = 200
+    Width = 52
+    Caption = 'Ratio: N/A'
+    ParentColor = False
+  end
+end

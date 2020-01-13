@@ -1,0 +1,104 @@
+object AnimMergeForm: TAnimMergeForm
+  Left = 1099
+  Height = 278
+  Top = 305
+  Width = 278
+  BorderStyle = bsDialog
+  Caption = 'Animation Merge'
+  ClientHeight = 278
+  ClientWidth = 278
+  OnShow = FormShow
+  Position = poMainFormCenter
+  LCLVersion = '1.2.0.3'
+  object cbAnim1: TComboBox
+    Left = 16
+    Height = 21
+    Top = 32
+    Width = 244
+    ItemHeight = 13
+    Style = csDropDownList
+    TabOrder = 0
+  end
+  object lblAnim1: TLabel
+    Left = 16
+    Height = 13
+    Top = 16
+    Width = 70
+    Caption = 'First animation:'
+    ParentColor = False
+  end
+  object lblAnim2: TLabel
+    Left = 16
+    Height = 13
+    Top = 72
+    Width = 88
+    Caption = 'Second animation:'
+    ParentColor = False
+  end
+  object cbAnim2: TComboBox
+    Left = 16
+    Height = 21
+    Top = 88
+    Width = 244
+    ItemHeight = 13
+    Style = csDropDownList
+    TabOrder = 1
+  end
+  object edtNewAnim: TEdit
+    Left = 16
+    Height = 21
+    Top = 200
+    Width = 240
+    TabOrder = 2
+  end
+  object lblNewAnim: TLabel
+    Left = 16
+    Height = 13
+    Top = 184
+    Width = 102
+    Caption = 'New animation name:'
+    ParentColor = False
+  end
+  object btnMerge: TButton
+    Left = 93
+    Height = 25
+    Top = 240
+    Width = 83
+    Caption = 'Merge!'
+    OnClick = btnMergeClick
+    TabOrder = 3
+  end
+  object cbMode: TComboBox
+    Left = 16
+    Height = 21
+    Top = 144
+    Width = 102
+    ItemHeight = 13
+    ItemIndex = 0
+    Items.Strings = (
+      'Full first'
+      'Full second'
+      'With offset'
+    )
+    OnChange = cbModeChange
+    Style = csDropDownList
+    TabOrder = 4
+    Text = 'Full first'
+  end
+  object lblMode: TLabel
+    Left = 16
+    Height = 13
+    Top = 128
+    Width = 62
+    Caption = 'Merge mode:'
+    ParentColor = False
+  end
+  object edtOffset: TEdit
+    Left = 128
+    Height = 21
+    Top = 144
+    Width = 128
+    Enabled = False
+    TabOrder = 5
+  end
+end
