@@ -30,3 +30,7 @@ lib/
 # Application bundle for Mac OS
 *.app/
 
+# Project specific
+tmp/
+*.abc
+*.lta

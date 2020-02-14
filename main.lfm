@@ -1,7 +1,7 @@
 object MainForm: TMainForm
-  Left = 688
+  Left = 192
   Height = 705
-  Top = 166
+  Top = 215
   Width = 683
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
@@ -12,7 +12,7 @@ object MainForm: TMainForm
   OnClose = FormClose
   OnCreate = FormCreate
   Position = poScreenCenter
-  LCLVersion = '2.0.0.4'
+  LCLVersion = '2.0.6.0'
   object StatusBar1: TStatusBar
     Left = 0
     Height = 23
@@ -85,15 +85,18 @@ object MainForm: TMainForm
       object SMDItem: TMenuItem
         Caption = 'Save as HL1 SMD (ModelEdit Coords)'
         Enabled = False
+        Visible = False
         OnClick = SMDItemClick
       end
       object SMDFixItem: TMenuItem
         Caption = 'Save as HL1 SMD (Engine Coords)'
         Enabled = False
+        Visible = False
         OnClick = SMDFixItemClick
       end
       object SeparatorItem2: TMenuItem
         Caption = '-'
+        Visible = False
       end
       object DecompileItem: TMenuItem
         Caption = 'Decompile'

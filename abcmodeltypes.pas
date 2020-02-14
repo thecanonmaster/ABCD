@@ -133,6 +133,7 @@ type
     nNameLength: Word;
     szName: string;
     nTransformIndex: Word;
+    nParentIndex: Word;
     nFlags: Byte;
     aMatrix: array[0..3] of LTRotation;
     nNumChildred: Cardinal;

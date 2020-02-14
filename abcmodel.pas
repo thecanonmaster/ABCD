@@ -54,7 +54,7 @@ type
     function ReadHeader(nNextOffset: Cardinal; nOffset: Cardinal): Boolean;
     procedure ReadPieces(nNextOffset: Cardinal; nOffset: Cardinal);
     procedure ReadNodes(nNextOffset: Cardinal; nOffset: Cardinal);
-    function ReadNodeItem(var nIndex: Cardinal; nChildren: Cardinal): Boolean;
+    function ReadNodeItem(var nIndex: Cardinal; nChildren: Cardinal; nTempParentIndex: Word): Boolean;
     function FindNodeFromTransformIndex(nIndex: Word): Cardinal;
     procedure ReadChildModels(nNextOffset: Cardinal; nOffset: Cardinal);
     procedure ReadAnimation(nNextOffset: Cardinal; nOffset: Cardinal);
@@ -238,6 +238,7 @@ begin
   begin
     m_slView.Add('Node name|' + szName);
     m_slView.Add('Transformation index|' + IntToStr(nTransformIndex));
+    m_slView.Add('Parent index|' + IntToStr(nParentIndex));
     m_slView.Add('Flags|' + IntToStr(nFlags));
     m_slView.Add('Matrix[x]|' + LTRotationToStr(@aMatrix[0]));
     m_slView.Add('Matrix[y]|' + LTRotationToStr(@aMatrix[1]));
@@ -706,7 +707,7 @@ begin
   Result := 0;
 end;
 
-function TABCParser.ReadNodeItem(var nIndex: Cardinal; nChildren: Cardinal): Boolean;
+function TABCParser.ReadNodeItem(var nIndex: Cardinal; nChildren: Cardinal; nTempParentIndex: Word): Boolean;
 var i: Cardinal;
 begin
 
@@ -720,13 +721,16 @@ begin
     SetLength(szName, nNameLength);
     m_pWorkStream.Read(szName[1], nNameLength);
     m_pWorkStream.Read(nTransformIndex, 2);
+    nParentIndex := nTempParentIndex;
     m_pWorkStream.Read(nFlags, 1);
     m_pWorkStream.Read(aMatrix, SizeOf(LTRotation) * 4);
     m_pWorkStream.Read(nNumChildred, 4);
 
-    if nNumChildred = 0 then Exit(False);
+    if nNumChildred = 0 then
+      Exit(False);
 
-    for i := 0 to nNumChildred - 1 do ReadNodeItem(nIndex, nNumChildred);
+    for i := 0 to nNumChildred - 1 do
+      ReadNodeItem(nIndex, nNumChildred, nTransformIndex);
 
   end;
 
@@ -737,7 +741,7 @@ var nIndex, i: Cardinal;
 begin
   WLog('Nodes chunk found, offset: ' + IntToHex(nOffset, 8) + 'h');
   nIndex := 0;
-  ReadNodeItem(nIndex, 0);
+  ReadNodeItem(nIndex, 0, $FFFF);
 
   with m_ABCModel.Nodes.WeightSets do
   begin
