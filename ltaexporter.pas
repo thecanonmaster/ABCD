@@ -369,6 +369,7 @@ var i: Cardinal;
 begin
   WriteNodeStart(Level, NODE_LODGROUPS, '');
   // for each pieces..for now
+  if m_pABCModel^.Pieces.nPiecesCount > 0 then
   for i := 0 to m_pABCModel^.Pieces.nPiecesCount - 1 do
   begin
     WriteLODGroup(Level + 2, @m_pABCModel^.Pieces.aItems[i]);
@@ -531,6 +532,7 @@ end;
 procedure TLTAExporter.WriteDeformers(Level: Integer);
 var i: Cardinal;
 begin
+  if m_pABCModel^.Pieces.nPiecesCount > 0 then
   for i := 0 to m_pABCModel^.Pieces.nPiecesCount - 1 do
   begin
     WriteArrayStart(Level, ARRAY_ADDDEFORMER, '');
@@ -588,6 +590,7 @@ procedure TLTAExporter.WriteShapes(Level: Integer);
 var pPiece: PABCPiecesItem;
     i: Cardinal;
 begin
+  if m_pABCModel^.Pieces.nPiecesCount > 0 then
   for i := 0 to m_pABCModel^.Pieces.nPiecesCount - 1 do
   begin
     pPiece := @m_pABCModel^.Pieces.aItems[i];

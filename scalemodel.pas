@@ -77,6 +77,7 @@ begin
   begin
     with ABCModel^.Pieces do
     begin
+      if nPiecesCount > 0 then
       for i := 0 to nPiecesCount - 1 do
       begin
         for j := 0 to aItems[i].nNumVerticles -1 do
@@ -172,6 +173,7 @@ begin
   begin
     with ABCModel^.Sockets do
     begin
+      if nSocketsCount > 0 then
       for i := 0 to nSocketsCount - 1 do
       begin
         aItems[i].vPos.x := (aItems[i].vPos.x - vOrigin.x) * vScale.x;

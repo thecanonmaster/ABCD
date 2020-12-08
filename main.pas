@@ -180,7 +180,7 @@ end;
 
 procedure TMainForm.HelpMenuClick(Sender: TObject);
 begin
-  ShowMessage('ABCD v0.14');
+  ShowMessage('ABCD v0.15');
 end;
 
 procedure TMainForm.ImportChildModelItemClick(Sender: TObject);

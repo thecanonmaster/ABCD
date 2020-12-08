@@ -1,95 +1,106 @@
 object FRateCalcForm: TFRateCalcForm
   Left = 498
-  Height = 224
+  Height = 280
   Top = 232
-  Width = 352
+  Width = 429
   BorderStyle = bsDialog
   Caption = 'Fire Rate Calculator'
-  ClientHeight = 224
-  ClientWidth = 352
+  ClientHeight = 280
+  ClientWidth = 429
+  DesignTimePPI = 120
   OnShow = FormShow
   Position = poMainFormCenter
-  LCLVersion = '1.0.14.0'
+  LCLVersion = '2.0.10.0'
   object btnCalc: TButton
-    Left = 240
-    Height = 26
-    Top = 24
-    Width = 96
+    Left = 300
+    Height = 32
+    Top = 30
+    Width = 120
     Caption = 'Calculate'
     OnClick = btnCalcClick
+    ParentFont = False
     TabOrder = 0
   end
   object cbAnim: TComboBox
-    Left = 8
-    Height = 21
-    Top = 24
-    Width = 216
-    ItemHeight = 13
+    Left = 10
+    Height = 28
+    Top = 30
+    Width = 270
+    ItemHeight = 20
     OnChange = cbAnimChange
+    ParentFont = False
     Style = csDropDownList
     TabOrder = 1
   end
   object lblAnim: TLabel
-    Left = 8
-    Height = 14
-    Top = 8
-    Width = 50
+    Left = 10
+    Height = 20
+    Top = 10
+    Width = 72
     Caption = 'Animation:'
     ParentColor = False
+    ParentFont = False
   end
   object lblFireRate: TLabel
-    Left = 8
-    Height = 14
-    Top = 104
-    Width = 65
+    Left = 10
+    Height = 20
+    Top = 130
+    Width = 88
     Caption = 'Fire rate: N/A'
     ParentColor = False
+    ParentFont = False
   end
   object lblLength: TLabel
-    Left = 8
-    Height = 14
-    Top = 56
-    Width = 60
+    Left = 10
+    Height = 20
+    Top = 70
+    Width = 79
     Caption = 'Length: N/A'
     ParentColor = False
+    ParentFont = False
   end
   object lblMsgCount: TLabel
-    Left = 8
-    Height = 14
-    Top = 80
-    Width = 77
+    Left = 10
+    Height = 20
+    Top = 100
+    Width = 103
     Caption = 'Msg count: N/A'
     ParentColor = False
+    ParentFont = False
   end
   object edtDesRate: TEdit
-    Left = 8
-    Height = 21
-    Top = 140
-    Width = 216
+    Left = 10
+    Height = 28
+    Top = 176
+    Width = 270
+    ParentFont = False
     TabOrder = 2
   end
   object lblDesRate: TLabel
-    Left = 8
-    Height = 14
-    Top = 126
-    Width = 61
+    Left = 10
+    Height = 20
+    Top = 158
+    Width = 84
     Caption = 'Desired rate:'
     ParentColor = False
+    ParentFont = False
   end
   object lblResLength: TLabel
-    Left = 8
-    Height = 14
-    Top = 176
-    Width = 101
+    Left = 10
+    Height = 20
+    Top = 220
+    Width = 137
     Caption = 'Resulted length: N/A'
     ParentColor = False
+    ParentFont = False
   end
   object lblRatio: TLabel
-    Left = 8
-    Height = 14
-    Top = 200
-    Width = 52
+    Left = 10
+    Height = 20
+    Top = 250
+    Width = 69
     Caption = 'Ratio: N/A'
     ParentColor = False
+    ParentFont = False
   end
 end

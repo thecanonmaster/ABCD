@@ -1,39 +1,43 @@
 object MainForm: TMainForm
-  Left = 192
-  Height = 705
-  Top = 215
-  Width = 683
+  Left = 688
+  Height = 898
+  Top = 243
+  Width = 860
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Lithtech Talon ABCDecompiler'
-  ClientHeight = 685
-  ClientWidth = 683
+  ClientHeight = 873
+  ClientWidth = 860
+  DesignTimePPI = 120
   Menu = MainMenu1
   OnClose = FormClose
   OnCreate = FormCreate
   Position = poScreenCenter
-  LCLVersion = '2.0.6.0'
+  LCLVersion = '2.0.10.0'
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 23
-    Top = 662
-    Width = 683
+    Height = 29
+    Top = 844
+    Width = 860
     Panels = <>
+    ParentFont = False
   end
   object mmoLog: TMemo
-    Left = 8
-    Height = 272
-    Top = 392
-    Width = 672
+    Left = 10
+    Height = 340
+    Top = 496
+    Width = 840
+    ParentFont = False
     ReadOnly = True
     ScrollBars = ssVertical
     TabOrder = 1
   end
   object tvData: TTreeView
-    Left = 8
-    Height = 384
-    Top = 0
-    Width = 200
+    Left = 10
+    Height = 480
+    Top = 8
+    Width = 250
+    ParentFont = False
     ReadOnly = True
     ScrollBars = ssVertical
     TabOrder = 2
@@ -41,30 +45,35 @@ object MainForm: TMainForm
     Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
   end
   object sgData: TStringGrid
-    Left = 216
-    Height = 384
-    Top = 0
-    Width = 464
+    Left = 270
+    Height = 480
+    Top = 8
+    Width = 580
     ColCount = 2
     Columns = <    
       item
+        MinSize = 12
+        MaxSize = 250
         ReadOnly = True
         Title.Caption = 'Key'
-        Width = 150
+        Width = 188
       end    
       item
+        MinSize = 12
+        MaxSize = 250
         ReadOnly = True
         Title.Caption = 'Value'
-        Width = 270
+        Width = 338
       end>
     FixedCols = 0
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goSmoothScroll]
+    ParentFont = False
     RowCount = 1
     TabOrder = 3
   end
   object MainMenu1: TMainMenu
-    left = 552
-    top = 424
+    Left = 690
+    Top = 530
     object FileMenu: TMenuItem
       Caption = 'File'
       object OpenABCItem: TMenuItem
@@ -134,13 +143,13 @@ object MainForm: TMainForm
   object OpenDialogABC: TOpenDialog
     Title = 'Open ABC file'
     Filter = 'LTTalon Model (*.ABC)|*.ABC'
-    left = 512
-    top = 424
+    Left = 640
+    Top = 530
   end
   object OpenDialogSCM: TOpenDialog
     Title = 'Open ABC file'
     Filter = 'Exported SCM (*.SCM)|*.SCM'
-    left = 504
-    top = 480
+    Left = 630
+    Top = 600
   end
 end

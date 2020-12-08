@@ -393,6 +393,7 @@ begin
   // pieces
   with m_ABCModel.Pieces do
   begin
+    if nPiecesCount > 0 then
     for i := 0 to nPiecesCount - 1 do
     begin
       SetLength(aItems[i].szName, 0);
@@ -645,6 +646,7 @@ begin
     m_pWorkStream.Read(nWeightCount, 4);
     m_pWorkStream.Read(nPiecesCount, 4);
     SetLength(aItems, nPiecesCount);
+    if nPiecesCount > 0 then
     for i := 0 to nPiecesCount - 1 do
     begin
       with aItems[i] do
