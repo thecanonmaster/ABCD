@@ -22,6 +22,7 @@ type
     AnimMergeItem: TMenuItem;
     ExportChildModelsItem: TMenuItem;
     ImportChildModelItem: TMenuItem;
+    OffsetChildModelsItem: TMenuItem;
     ScaleModelItem: TMenuItem;
     OpenDialogSCM: TOpenDialog;
     SeparatorItem3: TMenuItem;
@@ -46,6 +47,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure HelpMenuClick(Sender: TObject);
     procedure ImportChildModelItemClick(Sender: TObject);
+    procedure OffsetChildModelsItemClick(Sender: TObject);
     procedure OpenABCItemClick(Sender: TObject);
     procedure ScaleModelItemClick(Sender: TObject);
     procedure SMDFixItemClick(Sender: TObject);
@@ -180,7 +182,7 @@ end;
 
 procedure TMainForm.HelpMenuClick(Sender: TObject);
 begin
-  ShowMessage('ABCD v0.15');
+  ShowMessage('ABCD v0.16');
 end;
 
 procedure TMainForm.ImportChildModelItemClick(Sender: TObject);
@@ -189,8 +191,20 @@ begin
   if OpenDialogSCM.Execute then
   begin
     s := szCurrentFile;
-    Insert('_SCMFIX', s, Pos('.', s));
+    Insert('_SCMIMPORT', s, Pos('.', s));
     pABCModel.ImportSelfChildModel(s, OpenDialogSCM.FileName);
+  end;
+end;
+
+procedure TMainForm.OffsetChildModelsItemClick(Sender: TObject);
+var szOut: array[0..4] of string = ('1', '0', '0.0', '0.0', '0.0');
+    s: String;
+begin
+  if InputQuery( 'Offset child models', ['Ignore SELF', 'Node Index', 'Offset X', 'Offset Y', 'Offset Z'], szOut, nil) then
+  begin
+    s := szCurrentFile;
+    Insert('_SCMOFFSET', s, Pos('.', s));
+    pABCModel.OffsetChildModels(s, (szOut[0] <> '0'), StrToInt(szOut[1]), StrToFloat(szOut[2]), StrToFloat(szOut[3]), StrToFloat(szOut[4]));
   end;
 end;
 
@@ -204,6 +218,7 @@ begin
     if pABCModel <> nil then FreeAndNil(pABCModel);
     szCurrentFile := OpenDialogABC.FileName;
     WLog('Opening ABC file ' + OpenDialogABC.FileName);
+    StatusBar1.SimpleText := OpenDialogABC.FileName;
     pABCModel := TABCParser.Create;
     pABCModel.LogProc := @WLog;
     pABCModel.ViewProc := @Viewer;

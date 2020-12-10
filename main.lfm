@@ -3,9 +3,8 @@ object MainForm: TMainForm
   Height = 898
   Top = 243
   Width = 860
-  BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'Lithtech Talon ABCDecompiler'
+  Caption = 'Lithtech Talon ABCD'
   ClientHeight = 873
   ClientWidth = 860
   DesignTimePPI = 120
@@ -27,6 +26,7 @@ object MainForm: TMainForm
     Height = 340
     Top = 496
     Width = 840
+    Anchors = [akLeft, akRight, akBottom]
     ParentFont = False
     ReadOnly = True
     ScrollBars = ssVertical
@@ -36,7 +36,8 @@ object MainForm: TMainForm
     Left = 10
     Height = 480
     Top = 8
-    Width = 250
+    Width = 302
+    Anchors = [akTop, akLeft, akBottom]
     ParentFont = False
     ReadOnly = True
     ScrollBars = ssVertical
@@ -45,10 +46,11 @@ object MainForm: TMainForm
     Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
   end
   object sgData: TStringGrid
-    Left = 270
+    Left = 318
     Height = 480
     Top = 8
-    Width = 580
+    Width = 532
+    Anchors = [akTop, akLeft, akRight, akBottom]
     ColCount = 2
     Columns = <    
       item
@@ -134,6 +136,10 @@ object MainForm: TMainForm
         Caption = 'Export "SELF" Child Model'
         OnClick = ExportChildModelsItemClick
       end
+      object OffsetChildModelsItem: TMenuItem
+        Caption = 'Offset Child Models'
+        OnClick = OffsetChildModelsItemClick
+      end
     end
     object HelpMenu: TMenuItem
       Caption = 'About'
@@ -144,7 +150,7 @@ object MainForm: TMainForm
     Title = 'Open ABC file'
     Filter = 'LTTalon Model (*.ABC)|*.ABC'
     Left = 640
-    Top = 530
+    Top = 528
   end
   object OpenDialogSCM: TOpenDialog
     Title = 'Open ABC file'

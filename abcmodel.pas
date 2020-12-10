@@ -92,6 +92,7 @@ type
     procedure ViewTVNode(P: Pointer);
     //procedure FixExportedModel(S: string);
     procedure ImportSelfChildModel(szModelFile: string; szSCMFile: string);
+    procedure OffsetChildModels(szModelFile: string; bIgnoreSelf: Boolean; nNodeIndex: Integer; fX, fY, fZ: LTFloat);
     constructor Create;
     destructor Destroy; override;
   end;
@@ -338,25 +339,73 @@ begin
   m_pViewProc(m_slView);
 end;
 
+
+procedure TABCParser.OffsetChildModels(szModelFile: string;
+  bIgnoreSelf: Boolean; nNodeIndex: Integer; fX, fY, fZ: LTFloat);
+var
+  i, j: Cardinal;
+begin
+  m_pWorkStream.Position := m_anOffsetHolder[ID_CHILDMODELS];
+  with ABCModel.ChildModels do
+  begin
+    if nChildModelsCount > 0 then
+    begin
+      m_pWorkStream.WriteDWord(nChildModelsCount);
+      for i := 0 to nChildModelsCount - 1 do
+      begin
+        //m_pWorkStream.WriteDWord(aItems[i].nUnknownCardinal);
+        m_pWorkStream.Position := m_pWorkStream.Position + SizeOf(Cardinal);
+        if i <> 0 then
+        begin
+          //m_pWorkStream.WriteWord(aItems[i].nNameLength);
+          //m_pWorkStream.Write(aItems[i].szName[1], aItems[i].nNameLength);
+          m_pWorkStream.Position := m_pWorkStream.Position + SizeOf(Word) + Length(aItems[i].szName);
+        end;
+        for j := 0 to Length(aItems[i].aRelations) - 1 do
+        begin
+          if (nNodeIndex = j) and ((i > 0) or not bIgnoreSelf) then
+          begin
+            aItems[i].aRelations[j].vPos.x := aItems[i].aRelations[j].vPos.x + fX;
+            aItems[i].aRelations[j].vPos.y := aItems[i].aRelations[j].vPos.y + fY;
+            aItems[i].aRelations[j].vPos.z := aItems[i].aRelations[j].vPos.z + fZ;
+
+            m_pWorkStream.Write(aItems[i].aRelations[j].vPos, SizeOf(LTVector));
+            m_pWorkStream.Position := m_pWorkStream.Position + SizeOf(LTRotation);
+            //m_pWorkStream.Write(aItems[i].aRelations[j].rRot, SizeOf(LTRotation));
+          end
+          else
+          begin
+            m_pWorkStream.Position := m_pWorkStream.Position + SizeOf(LTVector);
+            m_pWorkStream.Position := m_pWorkStream.Position + SizeOf(LTRotation);
+          end;
+        end;
+      end;
+    end;
+  end;
+  WLog('File with offsetted child models: ' + szModelFile);
+  m_pWorkStream.SaveToFile(szModelFile);
+end;
+
 procedure TABCParser.ImportSelfChildModel(szModelFile: string; szSCMFile: string);
-var pFS: TFileStream;
+var pMS: TMemoryStream;
     sBuf: TABCChildModels;
     szHeader: array[0..2] of Char;
     nLen, i: Cardinal;
 begin
-  pFS := TFileStream.Create(szSCMFile, fmOpenRead);
-  pFS.Read(szHeader{%H-}, 3);
+  pMS := TMemoryStream.Create;
+  pMS.LoadFromFile(szSCMFile);
+  pMS.Read(szHeader{%H-}, 3);
   if szHeader = 'SCM' then
   begin
-    pFS.Read({%H-}sBuf.nChildModelsCount, 4);
-    pFS.Read(nLen{%H-}, 4);
+    pMS.Read({%H-}sBuf.nChildModelsCount, 4);
+    pMS.Read(nLen{%H-}, 4);
     SetLength(sBuf.aItems, 1);
-    pFS.Read(sBuf.aItems[0].nUnknownCardinal, 4);
+    pMS.Read(sBuf.aItems[0].nUnknownCardinal, 4);
     SetLength(sBuf.aItems[0].aRelations, nLen);
     for i := 0 to nLen-1 do
     begin
-      pFS.Read(sBuf.aItems[0].aRelations[i].vPos, SizeOf(LTVector));
-      pFS.Read(sBuf.aItems[0].aRelations[i].rRot, SizeOf(LTRotation));
+      pMS.Read(sBuf.aItems[0].aRelations[i].vPos, SizeOf(LTVector));
+      pMS.Read(sBuf.aItems[0].aRelations[i].rRot, SizeOf(LTRotation));
     end;
 
     m_pWorkStream.Position := m_anOffsetHolder[ID_CHILDMODELS];
@@ -371,7 +420,7 @@ begin
       end;
     end;
   end;
-  pFS.Free;
+  pMS.Free;
   WLog('File with imported child model: ' + szModelFile);
   m_pWorkStream.SaveToFile(szModelFile);
 end;
@@ -917,10 +966,11 @@ begin
 end;
 
 function TABCParser.ReadModel: Boolean;
-var szChunkName: string;
+var szChunkName: string = '';
     nChunkNameLength: Word;
     nNextPos: Cardinal;
 begin
+
   m_bSmthWentWrong := False;
   nChunkNameLength := 0;
   m_pWorkStream.Position := 0;
@@ -943,12 +993,12 @@ begin
         m_bSmthWentWrong := True;
         Exit(False);
       end;
-      if m_ABCModel.Header.nChildModelCount > 1 then
+      {if m_ABCModel.Header.nChildModelCount > 1 then
       begin
         WLog('ERROR! Model contains two or more child models, please remove them before loading!');
         m_bSmthWentWrong := True;
         Exit(False);
-      end;
+      end;  }
       if m_ABCModel.Header.nLODCount > 1 then
       begin
         WLog('ERROR! Model contains two or more LODs, please remove them before loading!');
