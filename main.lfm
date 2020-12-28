@@ -1,7 +1,7 @@
 object MainForm: TMainForm
-  Left = 688
+  Left = 339
   Height = 898
-  Top = 243
+  Top = 219
   Width = 860
   BorderStyle = bsSingle
   Caption = 'Lithtech Talon ABCD'

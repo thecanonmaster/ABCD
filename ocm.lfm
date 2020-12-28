@@ -1,0 +1,100 @@
+object OCMForm: TOCMForm
+  Left = 963
+  Height = 353
+  Top = 268
+  Width = 472
+  BorderStyle = bsDialog
+  Caption = 'Offset Child Models'
+  ClientHeight = 353
+  ClientWidth = 472
+  DesignTimePPI = 120
+  Position = poMainFormCenter
+  LCLVersion = '2.0.10.0'
+  object cbxNode: TComboBox
+    Left = 16
+    Height = 28
+    Top = 32
+    Width = 216
+    ItemHeight = 20
+    Style = csDropDownList
+    TabOrder = 0
+  end
+  object lblNode: TLabel
+    Left = 16
+    Height = 20
+    Top = 8
+    Width = 40
+    Caption = 'Node:'
+    ParentColor = False
+  end
+  object lblNode1: TLabel
+    Left = 248
+    Height = 20
+    Top = 8
+    Width = 90
+    Caption = 'Child Models:'
+    ParentColor = False
+  end
+  object cbxlCM: TCheckListBox
+    Left = 248
+    Height = 312
+    Top = 32
+    Width = 216
+    ItemHeight = 0
+    TabOrder = 1
+  end
+  object btnOffset: TButton
+    Left = 16
+    Height = 31
+    Top = 313
+    Width = 104
+    Caption = 'Offset'
+    OnClick = btnOffsetClick
+    TabOrder = 2
+  end
+  object edtY: TEdit
+    Left = 16
+    Height = 28
+    Top = 192
+    Width = 216
+    TabOrder = 3
+  end
+  object edtZ: TEdit
+    Left = 16
+    Height = 28
+    Top = 248
+    Width = 216
+    TabOrder = 4
+  end
+  object edtX: TEdit
+    Left = 16
+    Height = 28
+    Top = 136
+    Width = 216
+    TabOrder = 5
+  end
+  object lblX: TLabel
+    Left = 16
+    Height = 20
+    Top = 112
+    Width = 56
+    Caption = 'Offset X:'
+    ParentColor = False
+  end
+  object lblY: TLabel
+    Left = 16
+    Height = 20
+    Top = 168
+    Width = 55
+    Caption = 'Offset Y:'
+    ParentColor = False
+  end
+  object lblZ: TLabel
+    Left = 17
+    Height = 20
+    Top = 224
+    Width = 56
+    Caption = 'Offset Z:'
+    ParentColor = False
+  end
+end

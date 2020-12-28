@@ -69,7 +69,7 @@ procedure WLog(S: string);
 
 implementation
 
-uses frcalc, animmerge, scalemodel;
+uses frcalc, animmerge, scalemodel, ocm;
 
 {$R *.lfm}
 
@@ -182,7 +182,7 @@ end;
 
 procedure TMainForm.HelpMenuClick(Sender: TObject);
 begin
-  ShowMessage('ABCD v0.16');
+  ShowMessage('ABCD v0.17');
 end;
 
 procedure TMainForm.ImportChildModelItemClick(Sender: TObject);
@@ -197,14 +197,29 @@ begin
 end;
 
 procedure TMainForm.OffsetChildModelsItemClick(Sender: TObject);
-var szOut: array[0..4] of string = ('1', '0', '0.0', '0.0', '0.0');
-    s: String;
+var s: String;
+  i: Cardinal;
+  anCMIndices: TIntArray;
 begin
-  if InputQuery( 'Offset child models', ['Ignore SELF', 'Node Index', 'Offset X', 'Offset Y', 'Offset Z'], szOut, nil) then
+  OCMForm.Clear;
+
+  for i := 0 to Length(pABCModel.ABCModel.Nodes.aItems) - 1 do
   begin
+    OCMForm.cbxNode.Items.Add(IntToStr(i) + ' - ' + pABCModel.ABCModel.Nodes.aItems[i].szName);
+    OCMForm.cbxNode.ItemIndex := 0;
+  end;
+
+  for i := 0 to Length(pABCModel.ABCModel.ChildModels.aItems) - 1 do
+  begin
+    OCMForm.cbxlCM.Items.Add(pABCModel.ABCModel.ChildModels.aItems[i].szName);
+  end;
+
+  if OCMForm.ShowModal = mrOK then
+  begin
+    OCMForm.FillCMIndices(anCMIndices);
     s := szCurrentFile;
     Insert('_SCMOFFSET', s, Pos('.', s));
-    pABCModel.OffsetChildModels(s, (szOut[0] <> '0'), StrToInt(szOut[1]), StrToFloat(szOut[2]), StrToFloat(szOut[3]), StrToFloat(szOut[4]));
+    pABCModel.OffsetChildModels(s, anCMIndices, OCMForm.cbxNode.ItemIndex, StrToFloat(OCMForm.edtX.Text), StrToFloat(OCMForm.edtY.Text), StrToFloat(OCMForm.edtZ.Text));
   end;
 end;
 

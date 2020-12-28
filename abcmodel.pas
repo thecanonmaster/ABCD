@@ -92,12 +92,23 @@ type
     procedure ViewTVNode(P: Pointer);
     //procedure FixExportedModel(S: string);
     procedure ImportSelfChildModel(szModelFile: string; szSCMFile: string);
-    procedure OffsetChildModels(szModelFile: string; bIgnoreSelf: Boolean; nNodeIndex: Integer; fX, fY, fZ: LTFloat);
+    procedure OffsetChildModels(szModelFile: string; anCMList: array of Integer; nNodeIndex: Integer; fX, fY, fZ: LTFloat);
     constructor Create;
     destructor Destroy; override;
   end;
 
 implementation
+
+function IntegerInDynArray(N: Integer; A: array of Integer; S: Integer): Integer;
+var
+  i: Integer;
+begin
+  for i := 0 to S - 1 do
+  begin
+    if N = A[i] then Exit(i);
+  end;
+  Result := -1;
+end;
 
 function TABCParser.UnknownDataToString(S: string): string;
 var i, L: Integer;
@@ -341,7 +352,7 @@ end;
 
 
 procedure TABCParser.OffsetChildModels(szModelFile: string;
-  bIgnoreSelf: Boolean; nNodeIndex: Integer; fX, fY, fZ: LTFloat);
+  anCMList: array of Integer; nNodeIndex: Integer; fX, fY, fZ: LTFloat);
 var
   i, j: Cardinal;
 begin
@@ -363,7 +374,7 @@ begin
         end;
         for j := 0 to Length(aItems[i].aRelations) - 1 do
         begin
-          if (nNodeIndex = j) and ((i > 0) or not bIgnoreSelf) then
+          if (nNodeIndex = j) and (IntegerInDynArray(i, anCMList, Length(anCMList)) > -1) then
           begin
             aItems[i].aRelations[j].vPos.x := aItems[i].aRelations[j].vPos.x + fX;
             aItems[i].aRelations[j].vPos.y := aItems[i].aRelations[j].vPos.y + fY;

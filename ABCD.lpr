@@ -8,7 +8,7 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, main, abcmodel, abcmodeltypes, ms3d, hl1smd, ltaexporter, frcalc, 
-animmerge, scalemodel
+animmerge, scalemodel, ocm
   { you can add units after this };
 
 {$R *.res}
@@ -21,6 +21,7 @@ begin
   Application.CreateForm(TFRateCalcForm, FRateCalcForm);
   Application.CreateForm(TAnimMergeForm, AnimMergeForm);
   Application.CreateForm(TScaleModelForm, ScaleModelForm);
+  Application.CreateForm(TOCMForm, OCMForm);
   Application.Run;
 end.
 
